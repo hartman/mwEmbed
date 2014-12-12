@@ -258,7 +258,7 @@ mw.VastAdParser = {
 		// Build the curentCompanion
 		var resourceObj = {};
 		var companionAttr = [ 'width', 'height', 'id', 'expandedWidth', 'expandedHeight','minSuggestedDuration' ];
-		$j.each( companionAttr, function(na, attr){
+		$.each( companionAttr, function(na, attr){
 			if( $( resourceNode ).attr( attr ) ){
 				resourceObj[ attr ] = $( resourceNode ).attr( attr );
 			}

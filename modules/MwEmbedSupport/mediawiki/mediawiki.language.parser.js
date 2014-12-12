@@ -22,7 +22,7 @@
 	 * @return {Array} array of arguments desired, whether were variadic or not
 	 */
 	function getVariadicArgs( args, offset ) {
-		return $j.isArray( args[offset] ) ? args[offset] : $j.makeArray( args ).slice( offset );
+		return $.isArray( args[offset] ) ? args[offset] : $.makeArray( args ).slice( offset );
 	}
 
 	/**
@@ -56,12 +56,12 @@
 	 * Returns a jQuery plugin which parses the message in the message key, doing replacements optionally, and appends the nodes to
 	 * the current selector. Bindings to passed-in jquery elements are preserved. Functions become click handlers for [$1 linktext] links.
 	 * e.g.
-	 *		$j.fn.msg = mediaWiki.parser.getJqueryPlugin( options );
+	 *		$.fn.msg = mediaWiki.parser.getJqueryPlugin( options );
 	 *		var userlink = $( '<a>' ).click( function() { alert( "hello!!") } );
 	 *		$( 'p#headline' ).msg( 'hello-user', userlink );
 	 *
 	 * @param {Array} parser options
-	 * @return {Function} function suitable for assigning to jQuery plugin, such as $j.fn.msg
+	 * @return {Function} function suitable for assigning to jQuery plugin, such as $.fn.msg
 	 */
 	mw.language.getJqueryMessagePlugin = function( options ) {
 		var parser = new mw.language.parser( options );
@@ -74,7 +74,7 @@
 		 */
 		return function( key /* , replacements */ ) {
 			var $target = this.empty();
-			$j.each( parser.parse( key, getVariadicArgs( arguments, 1 ) ).contents(), function( i, node ) {
+			$.each( parser.parse( key, getVariadicArgs( arguments, 1 ) ).contents(), function( i, node ) {
 				$target.append( node );
 			} );
 			return $target;
@@ -95,7 +95,7 @@
 	 * @param {Array} options
 	 */
 	mw.language.parser = function( options ) {
-		this.settings = $j.extend( {}, parserDefaults, options );
+		this.settings = $.extend( {}, parserDefaults, options );
 		this.emitter = new mw.language.htmlEmitter( this.settings.language, this.settings.magic );
 	};
 
@@ -478,7 +478,7 @@
 		this.language = language;
 		var _this = this;
 
-		$j.each( magic, function( key, val ) {
+		$.each( magic, function( key, val ) {
 			_this[ key.toLowerCase() ] = function() { return val; };
 		} );
 
@@ -498,7 +498,7 @@
 					ret = node;
 					break;
 				case 'object': // node is an array of nodes
-					var subnodes = $j.map( node.slice( 1 ), function( n ) {
+					var subnodes = $.map( node.slice( 1 ), function( n ) {
 						return _this.emit( n, replacements );
 					} );
 					var operation = node[0].toLowerCase();
@@ -535,9 +535,9 @@
 		 */
 		concat: function( nodes ) {
 			var span = $( '<span>' ).addClass( 'mediaWiki_htmlEmitter' );
-			$j.each( nodes, function( i, node ) {
+			$.each( nodes, function( i, node ) {
 				if ( node instanceof jQuery && node.hasClass( 'mediaWiki_htmlEmitter' ) ) {
-					$j.each( node.contents(), function( j, childNode ) {
+					$.each( node.contents(), function( j, childNode ) {
 						span.append( childNode );
 					} );
 				} else {
@@ -622,6 +622,6 @@
 		}
 	};
 	window.gM = mediaWiki.language.getMessageFunction( options );
-	$j.fn.msg = mediaWiki.language.getJqueryMessagePlugin( options );
+	$.fn.msg = mediaWiki.language.getJqueryMessagePlugin( options );
 
 } )( mediaWiki, jQuery );

@@ -1512,9 +1512,6 @@ var mw = ( function ( $, undefined ) {
 
 }( jQuery ) );
 
-// Alias $j to jQuery for backwards compatibility
-window.$j = jQuery;
-
 // Attach to window and globally alias
 window.mw = window.mediaWiki = mw;
 

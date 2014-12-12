@@ -44,7 +44,7 @@ mw.KLayout.prototype = {
 		var _this = this;
 		var offsetLeft = 0;
 		var $boxContainer = $('<div />');
-		$j.each( $uiConfBox.children(), function( inx, boxItem ){
+		$.each( $uiConfBox.children(), function( inx, boxItem ){
 			var $node = $('<div />');
 			switch( boxItem.nodeName.toLowerCase() ){
 				case 'video':
